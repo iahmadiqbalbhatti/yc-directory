@@ -1,7 +1,13 @@
-export default function Home() {
+import SearchForm from "@/app/components/SearchForm";
+
+export default async function Home( { searchParams }: {
+  searchParams: Promise<{ query?: string }>
+} ) {
+  const query = ( await searchParams ).query;
+
   return (
       <>
-        <section className={"pink_container pattern-bg"}>
+        <section className={ "pink_container pattern-bg" }>
           <h1 className={ "heading" }>
             Pitch your Startup, <br/>
             Connect with Entrepreneurs
@@ -11,11 +17,11 @@ export default function Home() {
             Competitions.
           </p>
 
+          <SearchForm query={ query }/>
 
 
         </section>
       </>
-
 
 
   );
