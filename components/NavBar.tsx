@@ -26,7 +26,7 @@ const NavBar = async () => {
               </form>
 
 
-              <Link href={ `/user/${ session?.id }` }>
+              <Link href={ `/user/${ session?.user.id }` }>
                 <span>{ session?.user?.name?.split(" ")[0] }</span>
               </Link>
             </> ) : (
