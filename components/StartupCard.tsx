@@ -1,10 +1,14 @@
-import { formatDate } from "@/lib/utils";
-import { EyeIcon } from "lucide-react";
-import Link from "next/link";
+import {Button} from "@/components/ui/button";
+import {formatDate} from "@/lib/utils";
+import {Author, Startup} from "@/sanity/types";
+import {EyeIcon} from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const StartupCard = ( post ) => {
+
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author }
+
+const StartupCard = (post: StartupTypeCard) => {
   const {
     _createdAt,
     views,
@@ -16,11 +20,10 @@ const StartupCard = ( post ) => {
     description,
   } = post;
 
-
   return (
       <li className="startup-card group !border-r-[0.75rem] !border-b-[0.75rem]">
         <div className="flex-between">
-          <p className="startup_card_date">{ formatDate( _createdAt ) }</p>
+          <p className="startup_card_date">{ formatDate(new Date(_createdAt)) }</p>
           <div className="flex gap-1.5">
             <EyeIcon className="size-6 text-primary"/>
             <span className="text-16-medium">{ views }</span>
@@ -38,8 +41,8 @@ const StartupCard = ( post ) => {
           </div>
           <Link href={ `/user/${ author?._id }` }>
             <Image
-                src={ author?.image }
-                alt={ author?.name }
+                src={ author?.image || "./default-avatar.png" }
+                alt={ author?.name || "Avatar" }
                 width={ 48 }
                 height={ 48 }
                 className="rounded-full"
